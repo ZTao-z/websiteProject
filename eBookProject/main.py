@@ -54,11 +54,11 @@ def showDoc():
 
 @app.route('/get_txt/<book_name>')
 def get_txt( book_name ):
-	url = url_for( 'static' , filename=book_name )
-	if url is None:
-		return search_txt( book_name )
-	else:
-		return url
+    url = url_for( 'static' , filename=book_name )
+    if url is None:
+        return search_txt( book_name )
+    else:
+        return url
 
 if __name__ == '__main__':
     app.run(debug='true')

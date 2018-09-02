@@ -109,6 +109,14 @@ def bookshelf():
             'data' : allBooks
         })
 
+@app.route('/bookshelf/get/<book_name>')
+def get_book( book_name ):
+    url = url_for( DOWNLOAD_BOOK_FOLDER , filename=book_name+'.txt' )
+    if url is None:
+        return search_txt( book_name )
+    else:
+        download( book_name+'.txt' )
+
 #帮助文档
 @app.route('/updateDoc', methods=['GET'])
 def showDoc():

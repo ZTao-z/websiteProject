@@ -6,7 +6,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, send_from_directory, jsonify
 
 #user import
-from pylib import photo
+from pylib import photo, sendMail
 
 #PHOTO PATH
 UPLOAD_PHOTO_FOLDER = 'photo'
@@ -116,6 +116,20 @@ def get_book( book_name ):
         return search_txt( book_name )
     else:
         download( book_name+'.txt' )
+
+# 格式： 人名[,人名]&内容
+@app.route('/sendmail/<receiver_msg>')
+def mail(receiver_msg):
+    receiver, msg = receiver_msg.encode('utf-8').split('&')
+    flag = sendMail.sendMsgByMail(receiver, msg)
+    if(flag):
+        return jsonify({
+                'status' : 200
+            })
+    else:
+        return jsonify({
+                'status' : 404
+            })
 
 #帮助文档
 @app.route('/updateDoc', methods=['GET'])
